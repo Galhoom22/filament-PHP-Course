@@ -24,6 +24,7 @@ class BorrowerPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        dd(get_class_methods($panel));
         return $panel
             ->id('borrower')
             ->path('borrower')
