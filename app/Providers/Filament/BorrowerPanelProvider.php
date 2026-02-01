@@ -26,9 +26,10 @@ class BorrowerPanelProvider extends PanelProvider
         return $panel
             ->id('borrower')
             ->path('borrower')
-            ->login()
+            // ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Cyan,
+                'gray' => Color::Slate
             ])
             ->discoverResources(in: app_path('Filament/Borrower/Resources'), for: 'App\Filament\Borrower\Resources')
             ->discoverPages(in: app_path('Filament/Borrower/Pages'), for: 'App\Filament\Borrower\Pages')
@@ -37,7 +38,7 @@ class BorrowerPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Borrower/Widgets'), for: 'App\Filament\Borrower\Widgets')
             ->widgets([
-                AccountWidget::class,
+                // AccountWidget::class,
                 FilamentInfoWidget::class,
             ])
             ->middleware([
@@ -52,7 +53,7 @@ class BorrowerPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                // Authenticate::class,
             ]);
     }
 }
