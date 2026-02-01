@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Enums\ThemeMode;
 use Filament\Pages\Dashboard;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
@@ -24,14 +25,14 @@ class BorrowerPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        dd(get_class_methods($panel));
+        // dd(get_class_methods($panel));
         return $panel
             ->id('borrower')
             ->path('borrower')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
-                // 'gray' => Color::Slate
+                // 'gray' => Color::Blue
             ])
             ->discoverResources(in: app_path('Filament/Borrower/Resources'), for: 'App\Filament\Borrower\Resources')
             ->discoverPages(in: app_path('Filament/Borrower/Pages'), for: 'App\Filament\Borrower\Pages')
@@ -57,14 +58,25 @@ class BorrowerPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->profile()
-            ->simpleProfilePage(false)
-            ->spa()
-            ->spaUrlExceptions([
-                url('/borrower/profile')
-            ])
-            ->unsavedChangesAlerts()
-            ->databaseTransactions()
-            ;
+            // ->profile()
+            // ->simpleProfilePage(false)
+            // ->spa()
+            // ->spaUrlExceptions([
+            //     url('/borrower/profile')
+            // ])
+            // ->unsavedChangesAlerts()
+            // ->databaseTransactions()
+            // ->brandLogo(function(){
+                //     return view('logo');
+                // })
+            ->brandName('Book System')
+            ->brandLogo(asset('images/book.png'))
+            ->brandLogoHeight('3rem')
+            ->favicon(asset('images/book.png'))
+            // ->darkMode()
+            // ->defaultThemeMode(ThemeMode::Dark)
+            // ->darkModeBrandLogo(asset('images/book.jpg'))
+            // ->font('Poppins')
+        ;
     }
 }
