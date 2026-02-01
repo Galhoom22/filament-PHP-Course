@@ -77,6 +77,13 @@ class BorrowerPanelProvider extends PanelProvider
             // ->defaultThemeMode(ThemeMode::Dark)
             // ->darkModeBrandLogo(asset('images/book.jpg'))
             // ->font('Poppins')
+            // ->sidebarWidth('500px')
+            // ->sidebarCollapsibleOnDesktop()
+            // ->sidebarFullyCollapsibleOnDesktop()
+            // ->navigation(false)
+            // ->topNavigation()
+            // ->topBar(false)
+            ->breadcrumbs(false)
         ;
     }
 }
