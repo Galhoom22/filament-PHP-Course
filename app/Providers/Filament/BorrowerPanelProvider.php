@@ -2,22 +2,23 @@
 
 namespace App\Providers\Filament;
 
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\AuthenticateSession;
-use Filament\Http\Middleware\DisableBladeIconComponents;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Pages\Dashboard;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
+use Filament\Auth\Pages\EditProfile;
 use Filament\Widgets\FilamentInfoWidget;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
+use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Filament\Http\Middleware\AuthenticateSession;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
 class BorrowerPanelProvider extends PanelProvider
 {
@@ -26,10 +27,10 @@ class BorrowerPanelProvider extends PanelProvider
         return $panel
             ->id('borrower')
             ->path('borrower')
-            // ->login()
+            ->login()
             ->colors([
-                'primary' => Color::Cyan,
-                'gray' => Color::Slate
+                'primary' => Color::Amber,
+                // 'gray' => Color::Slate
             ])
             ->discoverResources(in: app_path('Filament/Borrower/Resources'), for: 'App\Filament\Borrower\Resources')
             ->discoverPages(in: app_path('Filament/Borrower/Pages'), for: 'App\Filament\Borrower\Pages')
@@ -38,7 +39,7 @@ class BorrowerPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Borrower/Widgets'), for: 'App\Filament\Borrower\Widgets')
             ->widgets([
-                // AccountWidget::class,
+                AccountWidget::class,
                 FilamentInfoWidget::class,
             ])
             ->middleware([
@@ -53,7 +54,16 @@ class BorrowerPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                // Authenticate::class,
-            ]);
+                Authenticate::class,
+            ])
+            ->profile()
+            ->simpleProfilePage(false)
+            ->spa()
+            ->spaUrlExceptions([
+                url('/borrower/profile')
+            ])
+            ->unsavedChangesAlerts()
+            ->databaseTransactions()
+            ;
     }
 }
